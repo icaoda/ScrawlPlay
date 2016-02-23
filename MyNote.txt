@@ -1,0 +1,51 @@
+----------------------------------------------------------------
+Change password when password expired: 
+SET password for root@localhost=password('123456');
+----------------------------------------------------------------
+Import/Export data:
+
+LOAD DATA INFILE "/Users/tdesmtfa/Desktop/tb_FA.txt" REPLACE(IGNORE) INTO TABLE tb_FA FIELDS TERMINATED BY',' ENCLOSED BY'"';
+MySQLimport –prl –fields-enclosed-by=" –fields-terminated-by=, Meet_A_Geek Orders.txt
+-d or --delete 新数据导入数据表中之前删除数据数据表中的所有信息-f or --force 不管是否遇到错误,MySQLimport 将强制继续插入数据-i or --ignore MySQLimport 跳过或者忽略那些有相同唯一关键字的行, 导入文件中的数据将被忽略。-l or -lock-tables 数据被插入之前锁住表,这样就防止了,你在更新数据库时,用户的查询和更新受到影响。-r or -replace 这个选项与-i 选项的作用相反;此选项将替代表中有相同唯一关键字的记录。 --fields-enclosed- by= char 指定文本文件中数据的记录时以什么括起的, 很多情况下数据以双引号括起。默认的情况下数据是没有被字符括起的。--fields-terminated- by=char 指定各个数据的值之间的分隔符,在句号分隔的文件中,分隔符是句号。您 可以用此选项指定数据之间的分隔符。
+
+
+
+MySQLdump –p –where="Order_ID > 2000" Meet_A_Geek Orders > Special_Dump.txt
+--add-drop-table这个选项将会在每一个表的前面加上 DROP TABLE IF EXISTS 语句,这样可以保证导回 MySQL 数据库的时候不会出错,因为每次导回的时候,都会首先检查表是否存在,存在就删除--add-locks这个选项会在 INSERT 语句中捆上一个 LOCK TABLE 和 UNLOCK TABLE 语句。这就防止在这些记录被再次导入数据库时其他用户对表进行的操作-c or - complete_insert这个选项使得 MySQLdump 命令给每一个产生 INSERT 语句加上列(field)的名字。当把数据导出导另外一个数据库时这个选项很有用。--delayed-insert 在 INSERT 命令中加入 DELAY 选项-F or -flush-logs 使用这个选项,在执行导出之前将会刷新 MySQL 服务器的 log.-f or -force 使用这个选项,即使有错误发生,仍然继续导出--full 这个选项把附加信息也加到 CREATE TABLE 的语句中-l or -lock-tables 使用这个选项,导出表的时候服务器将会给表加锁。-t or -no-create- info这个选项使的 MySQLdump 命令不创建 CREATE TABLE 语句,这个选项在您只需要数据而不需要 DDL(数据库定义语句)时很方便。
+-d or -no-data 这个选项使的 MySQLdump 命令不创建 INSERT 语句。在您只需要 DDL 语句时,可以使用这个选项。--opt 此选项将打开所有会提高文件导出速度和创造一个可以更快导入的文件的选项。-q or -quick 这个选项使得 MySQL 不会把整个导出的内容读入内存再执行导出,而是在读到的时候就写入导文件中。-T path or -tab = path 这个选项将会创建两个文件,一个文件包含 DDL 语句或者表创建语句,另一个文件包含数据。DDL 文件被命名为 table_name.sql,数据文件被命名为 table_name.txt.路径名是存放这两个文件 的目录。目录必须已经存在,并且命令的使用者有对文件的特权。-w "WHERE Clause" or -where = "Where clause " 如前面所讲的,您可以使用这一选项来过筛选将要放到导出文件的数据。
+
+
+
+SELECT * INTO OUTFILE '/home/mark/Orders.txt'
+----------------------------------------------------------------
+show databases;
+show tables;
+show full columns from FA_judge;
+----------------------------------------------------------------
+Creat Table
+
+ create table tb_test(
+    -> id int unsigned not null auto_increment,
+    -> firstname varchar(25) not null,
+    -> lastname varchar(25) not null,
+    -> email varchar(45) not null,
+    -> phone varchar(10) not null,
+    -> primary key(id));
+
+----------------------------------------------------------------
+Create database
+
+ create database db_test;
+
+----------------------------------------------------------------
+change encoding:
+
+alter database exam set character utf8;
+alter table FA_judge set character utf8;
+alter database 'exam' default CHARACTER SET utf8 collate utf8_general_ci;
+
+----------------------------------------------------------------
+GRANT PRIVILEGES
+
+grant select,insert,update on mydb.* to NewUserName@HostName identified by "password";
+----------------------------------------------------------------
